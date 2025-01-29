@@ -39,20 +39,8 @@
     border-bottom: 2px solid #ffdd57;
   }
   
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+ .title h1{
+  text-align: center;
+ }
   
-    .nav-links {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    .nav-links a {
-      font-size: 18px;
-    }
-  }
   
