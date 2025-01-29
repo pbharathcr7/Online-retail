@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../product.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-product',
@@ -13,7 +14,8 @@ export class AddProductComponent {
 
   constructor(
     private productService: ProductService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
   ) {
     this.productForm = this.formBuilder.group({
       productName: ['', Validators.required],
@@ -27,11 +29,13 @@ export class AddProductComponent {
       this.productService.addProduct(this.productForm.value)
         .subscribe({
           next: (response) => {
-            alert('Product added successfully');
+            // alert('Product added successfully');
+            this.toastr.success('Product added successfully', 'Success');
             this.productForm.reset();
           },
           error: (error) => {
-            alert('Error adding product')
+            // alert('Error adding product')
+            this.toastr.error('Error adding product', 'Error');
           }
         });
     }

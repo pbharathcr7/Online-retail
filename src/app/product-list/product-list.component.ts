@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
-import { OrderService } from '../order.service';
 import { ToastrService } from 'ngx-toastr';
+import { Product } from '../product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -9,11 +9,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products: any[] = [];
+  products: Product[] = [];
 
   constructor(
     private productService: ProductService,
-    private orderService: OrderService,
     private toastr: ToastrService
 
   ) {}
@@ -29,9 +28,8 @@ export class ProductListComponent implements OnInit {
   
 
   // add to cart functionality
-  addToCart(product: any): void {
+  addToCart(product: Product): void {
     console.log('Adding to cart:', product);
-    
     const cartItem = {
       ProductId: product.ProductId,
       ProductName: product.ProductName,

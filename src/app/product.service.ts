@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-interface Product {
+export interface Product {
   ProductId: string; 
-  productName: string;
+  ProductName: string;
   Quantity: number;
-  isActive: boolean;
+  IsActive: boolean;
 }
 
 @Injectable({

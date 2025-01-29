@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../order.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -8,14 +7,13 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './place-order.component.html',
   styleUrls: ['./place-order.component.css']
 })
+
 export class PlaceOrderComponent implements OnInit {
   cartItems: any[] = [];
 
   constructor(
     private orderService: OrderService,
-    private router: Router,
     private toastr: ToastrService
-
   ) {}
 
   ngOnInit() {
@@ -67,25 +65,26 @@ export class PlaceOrderComponent implements OnInit {
         productId: item.ProductId,
         quantity: item.Quantity
       };
-
-      this.orderService.addOrder(orderRequest).subscribe(
-        (response) => {
+  
+      this.orderService.addOrder(orderRequest).subscribe({
+        next: (response) => {
           this.toastr.success('Order placed successfully for product:');
         },
-        (error) => {
+        error: (error) => {
           console.error('Error placing order:', error);
-          if (error.error && error.error.errors) {
+          if (error.error?.errors) {
             const errorMessages = Object.values(error.error.errors).flat();
             alert(`Failed to place order: ${errorMessages.join(', ')}`);
           } else {
             alert('Failed to place order. Please try again.');
           }
-        }
-      );
+        },
+      });
     });
-
+  
     // After all orders are processed remove cart items
     localStorage.removeItem('cartItems');
     this.cartItems = [];
   }
+  
 }
