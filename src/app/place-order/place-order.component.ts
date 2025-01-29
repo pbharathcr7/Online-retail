@@ -28,7 +28,7 @@ export class PlaceOrderComponent implements OnInit {
   }
 
   increaseQuantity(item: any) {
-    // Find the product in the original product list to get the available stock
+    // Find the product in the product list which comes from backend to get the available stock
     const products = JSON.parse(localStorage.getItem('products') || '[]');
     const product = products.find((p: any) => p.ProductId === item.ProductId);
   
@@ -58,7 +58,7 @@ export class PlaceOrderComponent implements OnInit {
   }
 
   placeOrder() {
-    // Process each cart item as a separate order
+    // Processing each cart item as a separate order
     this.cartItems.forEach(item => {
       const orderRequest = {
         customerId: '9ca135b5-655c-4389-965a-faea64b05e5c',
@@ -82,7 +82,7 @@ export class PlaceOrderComponent implements OnInit {
       });
     });
   
-    // After all orders are processed remove cart items
+    //clear the cart items
     localStorage.removeItem('cartItems');
     this.cartItems = [];
   }

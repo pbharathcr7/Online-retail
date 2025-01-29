@@ -1,7 +1,6 @@
 <div class="place-order-container">
 <div class="order-container">
   <h2>Your Cart</h2>
-  <!-- Cart Items Table -->
   <table class="cart-table" *ngIf="cartItems && cartItems.length > 0">
     <thead>
       <tr>
@@ -27,12 +26,10 @@
     </tbody>
   </table>
 
-  <!-- Empty Cart Message -->
   <div *ngIf="!cartItems || cartItems.length === 0" class="empty-cart">
     Your cart is empty
   </div>
 
-  <!-- Place Order Button -->
   <div class="order-actions" *ngIf="cartItems && cartItems.length > 0">
     <button class="place-order-btn" (click)="placeOrder()">
       Place Order
