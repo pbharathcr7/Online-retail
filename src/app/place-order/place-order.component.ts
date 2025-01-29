@@ -58,7 +58,6 @@ export class PlaceOrderComponent implements OnInit {
   }
 
   placeOrder() {
-    // Processing each cart item as a separate order
     this.cartItems.forEach(item => {
       const orderRequest = {
         customerId: '9ca135b5-655c-4389-965a-faea64b05e5c',

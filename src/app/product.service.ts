@@ -28,7 +28,6 @@ export class ProductService {
     );
   }
   
-
   // Add a new product
   addProduct(product: Product): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}Product/AddProduct`, product);
