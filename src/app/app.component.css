@@ -1,4 +1,12 @@
-/* General Navbar Styling */
+.app-container {
+  background-image: url('../assets/icons/particle-lines-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+}
 .navbar {
     display: flex;
     align-items: center;
@@ -7,13 +15,14 @@
     background-color: #007bff;
     color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
   }
-  
-  .nav-logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    text-transform: uppercase;
+
+  .nav-logo img {
+    height: 40px;
+    width: auto;
+    border-radius: 12%;
   }
   
   .nav-links {
@@ -23,7 +32,8 @@
   
   .nav-links a {
     text-decoration: none;
-    color: #fff;
+    color: #ffffff;
+    font-weight: bold;
     font-size: 16px;
     transition: color 0.3s ease, border-bottom 0.3s ease;
     padding-bottom: 2px;
@@ -36,11 +46,9 @@
   
   .nav-links a.active-link {
     color: #ffdd57;
+    font-weight: bold;
     border-bottom: 2px solid #ffdd57;
   }
   
- .title h1{
-  text-align: center;
- }
-  
+
   
