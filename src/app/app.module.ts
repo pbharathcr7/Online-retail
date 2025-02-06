@@ -10,6 +10,12 @@ import { PlaceOrderComponent } from './place-order/place-order.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { ChatAssistantComponent } from './chat-assistant/chat-assistant.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProductListComponent,
     AddProductComponent,
     PlaceOrderComponent,
+    WishlistComponent,
+    ChatAssistantComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +32,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
+
     ToastrModule.forRoot({
       timeOut: 1000,
       positionClass: 'toast-top-right',

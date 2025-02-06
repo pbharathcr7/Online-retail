@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../product.service';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,24 +11,76 @@ import { Product } from '../product.service';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
+  filteredProducts: Product[] = [];
+  wishlist: Product[] = [];  
+  p: number = 1;
+  itemsPerPage: number = 24;
+  totalProduct: any;
 
   constructor(
     private productService: ProductService,
-    private toastr: ToastrService
-
-  ) {}
+    private toastr: ToastrService,
+    private searchService: SearchService
+  ) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-  
-      // Save the product list in localStorage for later use
-      localStorage.setItem('products', JSON.stringify(this.products));
+    this.productService.getProducts().subscribe({
+      next: (data) => {
+        this.products = data;
+        this.totalProduct = data.length;
+        this.filteredProducts = data;
+        localStorage.setItem('products', JSON.stringify(this.products));
+
+        const storedWishlist = localStorage.getItem('wishlistItems');
+        if (storedWishlist) {
+          this.wishlist = JSON.parse(storedWishlist);
+        }
+      },
+      error: (err) => {
+        console.log("Error", err);
+      },
+      complete: () => {
+        console.log("Fetched product data");
+      }
+    });
+
+    this.searchService.currentSearchTerm.subscribe({
+      next: (term) => {
+        this.filterProducts(term);
+      },
+      error: (err) => {
+        console.log("Error", err);
+      }
     });
   }
-  
 
-  // add to cart functionality
+  filterProducts(searchTerm: string): void {
+    if (!searchTerm.trim()) {
+      this.filteredProducts = [...this.products];
+      return;
+    }
+
+    this.filteredProducts = this.products.filter(product =>
+      product.ProductName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  isInWishlist(product: Product): boolean {
+    return this.wishlist.some(item => item.ProductId === product.ProductId);
+  }
+
+  toggleWishlist(product: Product) {
+    const index = this.wishlist.findIndex(item => item.ProductId === product.ProductId);
+    if (index > -1) {
+      this.wishlist.splice(index, 1);
+      this.toastr.info('Removed from wishlist', 'Wishlist');
+    } else {
+      this.wishlist.push(product);
+      this.toastr.success('Added to wishlist', 'Wishlist');
+    }
+    localStorage.setItem('wishlistItems', JSON.stringify(this.wishlist));
+  }
+
   addToCart(product: Product): void {
     console.log('Adding to cart:', product);
     const cartItem = {
@@ -35,16 +88,14 @@ export class ProductListComponent implements OnInit {
       ProductName: product.ProductName,
       Quantity: 1
     };
-  
+
     let cartItems = [];
     const existingCart = localStorage.getItem('cartItems');
     if (existingCart) {
       cartItems = JSON.parse(existingCart);
-  
-      // Check if the product already exists in the cart
+
       const existingItem = cartItems.find((item: any) => item.ProductId === product.ProductId);
       if (existingItem) {
-        // Ensure quantity doesn't exceed available stock
         if (existingItem.Quantity < product.Quantity) {
           existingItem.Quantity += 1;
           this.toastr.success('Product quantity updated in cart!', 'Success');
@@ -60,9 +111,6 @@ export class ProductListComponent implements OnInit {
       cartItems = [cartItem];
       this.toastr.success('Product added to cart successfully!', 'Success');
     }
-  
-    // Save updated cart to localStorage
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
-  
 }

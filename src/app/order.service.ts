@@ -16,7 +16,6 @@ export class OrderService {
   private apiUrl = 'https://uiexercise.theproindia.com/api/Order/AddOrder';
 
   constructor(private http: HttpClient) { }
-
   addOrder(orderRequest: OrderRequest): Observable<any> {
     console.log('Sending order request:', orderRequest);
     return this.http.post(this.apiUrl, orderRequest).pipe(

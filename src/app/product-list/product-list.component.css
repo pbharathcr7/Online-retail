@@ -1,3 +1,39 @@
+/* productlist.css */
+.template{
+  margin-top: 80px;
+  display: flex;
+}
+.animated-image {
+  width: 85%;
+  height: 470px;
+  margin: auto;
+  animation: fadeIn 2s ease-in-out, scaleUp 3s infinite alternate;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+.overlay-card {
+  position: absolute;
+  top: 55%;
+  left: 75%;
+  width: 20%;
+  height: 20%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
 .products-container {
   padding: 40px 20px;
   border-radius: 12px;
@@ -113,3 +149,73 @@
   border-radius: 8px;
 }
 
+.pagination{
+  display: flex;
+}
+.pgctrl{
+  margin: auto;
+}
+.wishlist-button {
+  background-color: transparent;
+  border: none;
+  color: #ff4757;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.wishlisted {
+  color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .template{
+    display: flex;
+    margin-top: 50px;
+  }
+
+  .animated-image {
+    width: 85%;
+    height: auto;
+    animation: fadeIn 2s ease-in-out, scaleUp 3s infinite alternate;
+  }
+  .overlay-card {
+    position: absolute;
+    top: 30%;
+    left: 75%;
+    width: 25%;
+    height: 10%;
+    font-size: 14px;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  .template{
+    display: flex;
+    margin-top: 50px;
+  }
+  .animated-image {
+    width: 85%;
+    height: auto;
+    animation: fadeIn 2s ease-in-out, scaleUp 3s infinite alternate;
+  }
+  .overlay-card {
+    position: absolute;
+    top: 23%;
+    width: 25%;
+    height: 10%;
+    left: 75%;
+    font-size: 10px;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+}

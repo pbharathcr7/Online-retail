@@ -15,14 +15,13 @@ export interface Product {
 })
 export class ProductService {
   private apiUrl = 'https://uiexercise.theproindia.com/api/';
-
   constructor(private http: HttpClient) {}
 
   // Get all products with quantity >= 1
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}Product/GetAllProduct`).pipe(
       map((products) => {
-        // console.log('API Response:', products);
+        console.log('API Response:', products);
         return products.filter((product) => product.Quantity >= 1);
       })
     );
